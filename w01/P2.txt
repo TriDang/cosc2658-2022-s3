@@ -1,0 +1,22 @@
+Approach 1: missing = (sum of numbers 0 to N) - (sum of array)
+
+sumWithoutMissing = N * (N + 1) / 2
+sumWithMissing = 0
+for i = 0 to N-1
+  sumWithMissing += A[i]
+return (sumWithoutMissing - sumWithMissing)
+
+===
+
+Approach 2: use a boolean array E[0..N] to store
+whether a number exists in the original array A
+
+E = array of N+1 elements
+for i = 0 to N
+  E[i] = false
+for i = 0 to N-1
+  E[A[i]] = true
+  // A[i] exists, so set E[A[i]] to true
+for i = 0 to N
+  if !E[i]
+    return i

@@ -8,7 +8,7 @@ public class ArrayQueue<T> {
 
   public ArrayQueue() {
     size = 0;
-    items = (T[])new T[MAX_SIZE];
+    items = (T[])new Object[MAX_SIZE];
   }
 
   public int size() {

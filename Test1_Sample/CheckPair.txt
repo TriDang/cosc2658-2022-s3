@@ -1,0 +1,60 @@
+boolean checkPair(int[] A, int S)
+  N = length(A)
+  for i from 0 to (N - 1)
+    for j from (i + 1) to (N - 1)
+      if (A[i] + A[j] == S) return true
+  return false
+
+The number in curly braces on the right of each line is the execution times
+of the respective statement on the left
+
+boolean checkPair(int[] A, int S)
+  N = length(A)                            {1}
+  for i from 0 to (N - 1)                  {N}
+    for j from (i + 1) to (N - 1)          {sum(N - i - 1): for i from 0 to N-1}
+      if (A[i] + A[j] == S) return true    {sum(N - i - 1): for i from 0 to N-1}
+  return false                             {1}
+
+The statement with largest number of execution is the statement inside the nested loop
+sum(N - i - 1): for i from 0 to (N-1)
+i = 0 => the element is N - 1
+i = 1 => the element is N - 2
+...
+i = (N-1) => the element is 0
+So, the sum is: 0 + 1 + 2 + ... + (N - 2) + (N - 1) = N*(N-1)/2
+Keep the most significant element and remove the constants, it is N^2
+The big-O of above algorithm is O(N^2)
+
+----------------
+boolean checkPair2(int[] A, int S)
+  N = length(A)
+  left = 0
+  right = N - 1
+  while (left < right)
+    if (A[left] + A[right] == S)
+      return true
+    if (A[left] + A[right] < S)
+      left++
+    else
+      right--
+  return false
+
+Analysis
+
+boolean checkPair2(int[] A, int S)
+  N = length(A)                      {1}
+  left = 0                           {1}
+  right = N - 1                      {1}
+  while (left < right)               {N}
+    if (A[left] + A[right] == S)     {N}
+      return true                    {1}
+    if (A[left] + A[right] < S)      {N}
+      left++                         {N}
+    else
+      right--                        {N}
+  return false                       {1}
+
+Initially, left and right are N-position far away
+Inside the loop, either left or right advances one unit closer to each other per iteration
+So, they will eventually meet after N iterations
+The time complexity in this algorithm is O(N)

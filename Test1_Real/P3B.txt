@@ -1,0 +1,74 @@
+int closestZeroSum(int[] A)
+    N = length(A)
+    closest = INFINITY
+    for i from 0 to (N - 3)
+        for j from (i + 1) to (N - 2)
+            for k from (j + 1) to (N - 1)
+                if (abs(A[i] + A[j] + A[k]) < closest)
+                    closest = abs(A[i] + A[j] + A[k])
+    return closest
+
+Part 1
+The number in curly braces on the right of each line is the execution times
+of the respective statement on the left (for values like N-1, N-2, N+1, N+2, I will just write N to simplify the calculations)
+
+int closestZeroSum(int[] A)
+    N = length(A)                                         {1}
+    closest = INFINITY                                    {1}
+    for i from 0 to (N - 3)                               {N}
+        for j from (i + 1) to (N - 2)                     {sum(N-i) for i = 0 to N}
+            for k from (j + 1) to (N - 1)                 {sum(N-j) for j = i to N}
+                if (abs(A[i] + A[j] + A[k]) < closest)    {sum(N-j) for j = i to N}
+                    closest = abs(A[i] + A[j] + A[k])     {sum(N-j) for j = i to N}
+    return closest                                        {1}
+
+The statement with largest number of execution are the statements in the inner loop:
+3 * (sum(N - j)) j = i to N, i = 0 to N
+
+Because (N-j) <= N
+sum(N-j) for j = 0 to i must be <= N * i
+furthermore, N*i <= N*N = N^2
+so, sum(N*i), i = 0 to N must be <= sum(N^2), i = 0 to N
+sum(N^2), i = 0 to N is (N^2) + (N^2) .... + (N^2)  (N times)
+= N^2 * N = N^3
+Keep the most significant element and remove the constants, it is N^3
+The big-O of above algorithm is O(N^3)
+
+----------------
+Part 2
+We have three elements A[i], A[j], A[k]
+We can fix one, for example, A[i]
+Then, find a pair of (A[j], A[k]) so that
+(A[j] + A[k]) is as close to -A[i] as possible
+=> Reuse the solution to Problem 4, Tutorial 2
+
+Initially, assign the left-most index to j, right-most index to k
+if (A[j] + A[k]) == -A[i] => stop
+if (A[j] + A[k]) < -A[i] => decrease k
+if (A[j] + A[k]) > -A[i] => increase j
+
+There are at most N possible values for A[i]
+For each value of A[i], we check the range from A[i+1] to A[N-1]
+The maximum length of the range is N
+and the length of the range is decreased by one each step
+=> The complexity of the inner loop: O(N)
+Because the complexity of the outer loop is O(N)
+=> The complexity of the algorithm: O(N^2)
+
+int betterZeroSum(int[] A)
+    N = length(A)
+    closest = INFINITY
+    for i from 0 to (N - 1)
+        V = -A[i]
+        left = i + 1
+        right = N - 1
+        while (left < right)
+            if (abs(A[i] + A[left] + A[right]) < closest)
+                closest = abs(A[i] + A[left] + A[right])
+            if (A[left] + A[right] > V)
+                right--
+            else if (A[left] + A[right] < V)
+                left++
+            else
+                return 0
+    return closest

@@ -2,9 +2,9 @@ package w06;
 
 public class Permutation {
   public static void main(String[] args) {
-    int[] input = {1, 2, 3, 4};
-    int[] current = {0, 0, 0, 0};
-    boolean[] taken = {false, false, false, false};
+    int[] input = {1, 2, 3};
+    int[] current = {0, 0, 0};
+    boolean[] taken = {false, false, false};
     permute(input, taken, current, 0);
   }
 

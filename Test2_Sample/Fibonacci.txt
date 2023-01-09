@@ -1,0 +1,29 @@
+int fib(int N)
+  if N == 1
+    return 0
+  if N == 2
+    return 1
+  return fib(N-1) + Fib(N-2)
+
+Denote the cost of solving a problem of size N as T(N)
+We have:
+T(N) = T(N-1) + T(N-2) + 1 <= T(N-1) + T(N-1) + 1 <= 2*T(N-1) + 1
+
+Applying substitution, we have:
+
+T(N) <= 2*T(N-1) + 1 <= 2*(2*T(N-2) + 1) + 1
+T(N) <= (2^2)*T(N-2) + (2^1 + 1)
+....
+T(N) <= (2^X)*T(N-X) + (2^(X-1) + 2^(X-2) + ... + 2 + 1)
+T(N) <= (2^X)*T(N-X) + (2^X - 1)
+
+We have the base case when X = N, as such:
+T(N) <= 2^N + (2^N - 1) = 2^(N+1) = O(2^N)
+
+We can solve this problem more efficiently by using Dynamic Programming
+F[0] = 1 (constant time)
+F[1] = 2 (constant time)
+for i = 2 to N (repeat N times)
+  F[i] = F[i-1] + F[i-2] (constant time execution each time)
+
+The final time complexity is O(N)

@@ -21,7 +21,7 @@ public class MovieOrdering {
   int max = 0;
 
   public MovieOrdering() {
-    movies = new Movie[MAX_SIZE];    
+    movies = new Movie[MAX_SIZE];
   }
 
   // addMovie complexity = O(1)

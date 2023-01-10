@@ -3,7 +3,7 @@ int fib(int N)
     return 0
   if N == 2
     return 1
-  return fib(N-1) + Fib(N-2)
+  return fib(N-1) + fib(N-2)
 
 Denote the cost of solving a problem of size N as T(N)
 We have:

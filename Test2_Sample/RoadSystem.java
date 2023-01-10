@@ -53,7 +53,7 @@ public class RoadSystem {
     return res;
   }
 
-  // simpleLength complexity = O(N^3)
+  // optimalLength complexity = O(N^2)
   public double optimalLength() {
     // Create a matrix for the distances between labs
     double[][] matrix = new double[size][size];
